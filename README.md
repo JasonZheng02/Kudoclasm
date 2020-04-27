@@ -1,4 +1,4 @@
-# <Project Name> by Kudoclasm
+# Project Name by Kudoclasm
   
 ## Roster
   - Matthew Chan
@@ -7,11 +7,11 @@
   - Jason Zheng
   
 ## Description
-asdf
+asdfasdfasdf
 
 ## APIs
   - API 1
-      asdf
+    - API discription
   - API 2
-  
+    - API discription
 ## Launch Codes
