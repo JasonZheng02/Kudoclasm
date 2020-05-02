@@ -1,2 +1,11 @@
-2020-04-29 Morning
-First Draft of Design Doc Added
+Team Kudoclasm: Jason Zheng, Hong Wei Chen, Matthew Chan, Tyler Huang
+SoftDev pd2
+P04 -- Let the Data Speak
+2020-05-11
+
+matthewC -- 2020-04-29 04:58
+First draft of design doc added
+
+matthewC -- 2020-05-02 18:00
+Basic starter flask app
+
