@@ -11,3 +11,9 @@ Basic starter flask app
 
 matthewC -- 2020-05-02 18:24
 Added data files
+
+matthewC -- 2020-05-07 03:31
+Created SVG map rendering using TopoJSON
+Added zooming and panning functionality
+Added hover tooltips with country names
+Tested basic css applications for the map
