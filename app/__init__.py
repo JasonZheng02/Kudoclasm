@@ -5,14 +5,12 @@
 
 from flask import Flask
 from flask import render_template
-from urllib.request import urlopen
-import json
 
 app = Flask(__name__)
 
 @app.route('/')
 def root():
-    return "Basic starter app"
+    return render_template('index.html')
 
 
 

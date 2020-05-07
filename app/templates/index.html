@@ -1,0 +1,27 @@
+<!-- 
+Team Kudoclasm: Jason Zheng, Hong Wei Chen, Matthew Chan, Tyler Huang
+SoftDev pd2
+P04 -- Let the Data Speak
+2020-05-11
+-->
+
+{% extends 'template.html' %}
+
+{% block title %}
+    Title In Progress
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/map.css">
+
+    <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v3.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    Map
+    <br>
+    <svg id="map" width="100%" height="50rem" style="border: 1px solid;"></svg>
+
+    <script src="../static/js/map.js"></script>
+{% endblock %}

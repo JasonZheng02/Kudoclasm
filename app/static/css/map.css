@@ -1,0 +1,13 @@
+#map #sphere {
+    fill: #4242e4;
+}
+
+#map #country {
+    fill: lightgreen;
+    stroke: black;
+    stroke-width: 0.05px;
+}
+
+#map #country:hover {
+    fill: red;
+}
