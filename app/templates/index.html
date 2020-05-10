@@ -21,7 +21,10 @@ P04 -- Let the Data Speak
 {% block body %}
     Map
     <br>
-    <svg id="map" width="100%" height="50rem" style="border: 1px solid;"></svg>
+    <div class="container-fluid">
+        <svg id="map" width="1000" height="500" style="border: 1px solid;"></svg>
+        <div id="tooltip"></div>
+    </div>
 
     <script src="../static/js/map.js"></script>
 {% endblock %}
