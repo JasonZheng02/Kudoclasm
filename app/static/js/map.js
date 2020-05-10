@@ -6,14 +6,15 @@
 var svg = d3.select('svg');
 svg.on('click', reset);
 
-var width = svg.attr('width');
-var height = svg.attr('height');
-console.log(width);
-console.log(height);
+var width = window.screen.width;
+var height = window.screen.height;
+svg.attr('width', width);
+svg.attr('height', height);
 
 const topoJSON_url = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json';
 
 const projection = d3.geoNaturalEarth1()
+                    .scale(225)
                     .translate([width/2, height/2]);
 const pathGenerator = d3.geoPath().projection(projection);
 
@@ -39,7 +40,108 @@ g.append('path')
 
 
 // Handle happiness data from csv files
-// d3.csv()
+d3.csv('../static/data/2015.csv', d => {
+    return {
+        country: d.Country,
+        rank: +d['Happiness Rank'],
+        score: +d['Happiness Score'],
+        factors: {
+            economy: +d['Economy (GDP per Capita)'],
+            family: +d.Family,
+            health: +d['Health (Life Expectancy)'],
+            freedom: +d.Freedom,
+            trust: +d['Trust (Government Corruption)'],
+            generosity: +d.Generosity,
+            residual: +d['Dystopia Residual']
+        }
+    };
+}).then(function(data) {
+    // console.log(data);
+    // console.log(data[0]);
+    const data2015 = data;
+});
+d3.csv('../static/data/2016.csv', d => {
+    return {
+        country: d.Country,
+        rank: +d['Happiness Rank'],
+        score: +d['Happiness Score'],
+        factors: {
+            economy: +d['Economy (GDP per Capita)'],
+            family: +d.Family,
+            health: +d['Health (Life Expectancy)'],
+            freedom: +d.Freedom,
+            trust: +d['Trust (Government Corruption)'],
+            generosity: +d.Generosity,
+            residual: +d['Dystopia Residual']
+        }
+    };
+}).then(function(data) {
+    // console.log(data);
+    // console.log(data[0]);
+    const data2016 = data;
+});
+d3.csv('../static/data/2017.csv', d => {
+    return {
+        country: d.Country,
+        rank: +d['Happiness.Rank'],
+        score: +d['Happiness.Score'],
+        factors: {
+            economy: +d['Economy..GDP.per.Capita.'],
+            family: +d.Family,
+            health: +d['Health..Life.Expectancy.'],
+            freedom: +d.Freedom,
+            trust: +d['Trust..Government.Corruption.'],
+            generosity: +d.Generosity,
+            residual: +d['Dystopia.Residual']
+        }
+    };
+}).then(function(data) {
+    // console.log(data);
+    // console.log(data[0]);
+    const data2017 = data;
+});
+d3.csv('../static/data/2018.csv', d => {
+    return {
+        country: d['Country or region'],
+        rank: +d['Overall rank'],
+        score: +d.Score,
+        factors: {
+            economy: +d['GDP per capita'],
+            // family: +d.Family,
+            social: +d['Social support'],
+            health: +d['Healthy life expectancy'],
+            freedom: +d['Freedom to make life choices'],
+            trust: +d['Perceptions of corruption'],
+            generosity: +d.Generosity,
+            // residual: +d['Dystopia.Residual']
+        }
+    };
+}).then(function(data) {
+    // console.log(data);
+    // console.log(data[0]);
+    const data2018 = data;
+});
+d3.csv('../static/data/2019.csv', d => {
+    return {
+        country: d['Country or region'],
+        rank: +d['Overall rank'],
+        score: +d.Score,
+        factors: {
+            economy: +d['GDP per capita'],
+            // family: +d.Family,
+            social: +d['Social support'],
+            health: +d['Healthy life expectancy'],
+            freedom: +d['Freedom to make life choices'],
+            trust: +d['Perceptions of corruption'],
+            generosity: +d.Generosity,
+            // residual: +d['Dystopia.Residual']
+        }
+    };
+}).then(function(data) {
+    console.log(data);
+    console.log(data[0]);
+    const data2019 = data;
+});
 
 
 var tooltip = d3.select('#tooltip').style('opacity', 0);
