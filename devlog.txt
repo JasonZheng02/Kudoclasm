@@ -17,3 +17,10 @@ Created SVG map rendering using TopoJSON
 Added zooming and panning functionality
 Added hover tooltips with country names
 Tested basic css applications for the map
+
+matthewC -- 2020-05-09 20:42
+Added clickable activity to countries to zoom/focus in on them
+Refactored other parts of zoom logic
+
+matthewC -- 2020-05-10 01:38
+Initial csv parsing and formatting using d3.csv
