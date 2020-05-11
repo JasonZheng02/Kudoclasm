@@ -24,3 +24,8 @@ Refactored other parts of zoom logic
 
 matthewC -- 2020-05-10 01:38
 Initial csv parsing and formatting using d3.csv
+
+matthewC -- 2020-05-10 11:26
+Linked csv happiness data to countries
+Corrected inconsistancies with country naming
+Applied color scale to happiness score to implement choropleth-ness
