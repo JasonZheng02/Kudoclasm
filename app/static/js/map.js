@@ -7,7 +7,7 @@ var svg = d3.select('svg');
 svg.on('click', reset);
 
 var width = window.screen.width;
-var height = window.screen.height;
+var height = window.screen.height*(3/4);
 svg.attr('width', width);
 svg.attr('height', height);
 
@@ -24,7 +24,7 @@ const g = svg.append('g');
 
 // Handle zoom and pan logic.
 const zoom = d3.zoom()
-                // .scaleExtent([1, 8])
+                .scaleExtent([1, 10])
                 .on('zoom', () => {
                     g.attr('transform', d3.event.transform);
                 });
@@ -32,11 +32,11 @@ const zoom = d3.zoom()
 svg.call(zoom);
 
 
-// Create the outer border of the Earth.
-g.append('path')
-        .attr('id', 'sphere')
-        .attr('d', pathGenerator({type: 'Sphere'}))
-        .on('click', reset);
+// // Create the outer border of the Earth.
+// g.append('path')
+//         .attr('id', 'sphere')
+//         .attr('d', pathGenerator({type: 'Sphere'}))
+//         .on('click', reset);
 
 
 // Handle happiness data from csv files
@@ -188,6 +188,13 @@ function getScore(country) {
     };
 };
 
+
+var colorScale = d3.scaleSequential()
+                .domain([2.853, 7.769])
+                .interpolator(d3.interpolateLab('purple', 'orange'))
+                .unknown('#ccc');
+
+
 var tooltip = d3.select('#tooltip').style('opacity', 0);
 
 d3.json(topoJSON_url)
@@ -205,22 +212,30 @@ d3.json(topoJSON_url)
             .append('path')
                 .attr('id', 'country')
                 .attr('d', pathGenerator)
+                .attr('fill', d => {
+                    if (getScore(d.properties.name) != 'N/A') {
+                        return colorScale(getScore(d.properties.name));
+                    }
+                    else {
+                        return colorScale(NaN);
+                    };
+                })
+                .on("mouseover", d => {
+                    tooltip.transition()
+                            .duration(1000)
+                            .style('opacity', .9);
+                    tooltip.html(d.properties.name + '<br>' + getScore(d.properties.name))
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.transition()
+                            .duration(1000)
+                            .style("opacity", 0);
+                })
+                .on("click", focus);
             // .append('title')
             //     .text(d => d.properties.name)
-            .on("mouseover", d => {
-                tooltip.transition()
-                        .duration(1000)
-                        .style('opacity', .9);
-                tooltip.html(d.properties.name + '<br>' + getScore(d.properties.name))
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-            })
-            .on("mouseout", () => {
-                tooltip.transition()
-                        .duration(1000)
-                        .style("opacity", 0);
-            })
-            .on("click", focus);
         });
         
 

@@ -3,8 +3,8 @@
 }
 
 #map #country {
-    fill: lightgreen;
-    stroke: black;
+    /* fill: lightgreen; */
+    stroke: white;
     stroke-width: 0.05px;
 }
 
