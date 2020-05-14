@@ -78,17 +78,17 @@ d3.json(topoJSON_url).then(data => {
 
 function tooltipShow(d) {
     tooltip.transition()
-            .duration(1000)
+            .duration(500)
             .style('opacity', .9)
             .style('display', 'block');
-    tooltip.html(d.properties.name + '<br>' + getScore(data2019, d.properties.name) + '<br>' + getRank(data2019, d.properties.name))
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px");
+    tooltip.html(d.properties.name + '<br>' + 'Score: ' + getScore(data2019, d.properties.name) + '<br>' + 'Rank: ' + getRank(data2019, d.properties.name))
+            .style("left", (d3.event.pageX + 10) + "px")
+            .style("top", (d3.event.pageY - 50) + "px");
 };
 
 function tooltipHide(d) {
     tooltip.transition()
-            .duration(1000)
+            .duration(250)
             .style("opacity", 0)
             .on('end', () => {tooltip.style('display', 'none')});
 };

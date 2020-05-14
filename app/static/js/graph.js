@@ -6,14 +6,29 @@
 
 function graph(dataset, d) {
     var graph = d3.select('#graph');
+    var mask = d3.select('#mask');
+
+    const windowWidth = window.screen.width;
+    const windowHeight = window.screen.height;
+
+    mask.attr('width', windowWidth);
+    mask.attr('height', windowHeight);
+    mask.on('click', graphClose);
+
+    var width = 500;
+    var height = 250;
     
     graph.transition()
-            .duration(1000)
+            .duration(500)
             .style('opacity', 1)
             .style('display', 'block');
-    // graph.html(d.properties.name + '<br>' + getScore(dataset, d.properties.name) + '<br>' + getRank(dataset, d.properties.name))
-            // .style("left", (d3.event.pageX) + "px")
-            // .style("top", (d3.event.pageY - 28) + "px");
+    mask.transition()
+        .duration(500)
+        .style('opacity', 0.8)
+        .style('display', 'block');
+    graph.html('<h1>' + d.properties.name + '</h1><h4>' + 'Happiness Score: ' + getScore(dataset, d.properties.name) + '</h4><h4>' + 'Ranking: ' + getRank(dataset, d.properties.name) + '</h4><hr><br>')
+            .style("left", ((windowWidth/2)-(width/2)) + "px")
+            .style("top", ((windowHeight*(3/4)/2)-(height/2)) + "px");
     
     
     var countryData = findCountry(dataset, d.properties.name);
@@ -28,14 +43,11 @@ function graph(dataset, d) {
     };
     // console.log(data);
 
-    var width = 500;
-    var height = 250;
-
     var svg = graph.append('svg')
                     .attr('height', height)
                     .attr('width', width);
                     
-    var margin = {top:20, right:0, bottom:30, left:70};
+    var margin = {top:20, right:15, bottom:30, left:70};
     var innerWidth = width - margin.left - margin.right;
     var innerHeight = height - margin.top - margin.bottom;
 
@@ -68,7 +80,7 @@ function graph(dataset, d) {
           
     xAxisG.select('.domain').remove();
     
-    var xAxisLabelText = 'X axis label text?'
+    var xAxisLabelText = 'Percentage Impact'
     xAxisG.append('text')
             .attr('class', 'axis-label')
             .attr('y', 65)
@@ -82,7 +94,7 @@ function graph(dataset, d) {
             .attr('width', d => xScale(xValue(d)))
             .attr('height', yScale.bandwidth());
 
-    var titleText = 'Title?'
+    var titleText = 'Happiness Score Impacting Factors'
     g.append('text')
         .attr('class', 'title')
         .attr('y', -10)
@@ -90,5 +102,15 @@ function graph(dataset, d) {
 };
 
 function graphClose(d) {
+    var graph = d3.select('#graph');
+    var mask = d3.select('#mask');
 
+    graph.transition()
+            .duration(500)
+            .style("opacity", 0)
+            .on('end', () => {graph.style('display', 'none')});
+    mask.transition()
+        .duration(500)
+        .style("opacity", 0)
+        .on('end', () => {mask.style('display', 'none')});
 };
