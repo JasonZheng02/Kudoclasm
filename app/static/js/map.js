@@ -14,7 +14,7 @@ svg.attr('height', height);
 const topoJSON_url = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json';
 
 const projection = d3.geoNaturalEarth1()
-                    .scale(225)
+                    .scale(245)
                     .translate([width/2, height/2]);
 const pathGenerator = d3.geoPath().projection(projection);
 
@@ -195,7 +195,7 @@ var colorScale = d3.scaleSequential()
                 .unknown('#ccc');
 
 
-var tooltip = d3.select('#tooltip').style('opacity', 0);
+var tooltip = d3.select('#tooltip').style('opacity', 0).style('display', 'none');
 
 d3.json(topoJSON_url)
     .then(data => {
@@ -223,7 +223,8 @@ d3.json(topoJSON_url)
                 .on("mouseover", d => {
                     tooltip.transition()
                             .duration(1000)
-                            .style('opacity', .9);
+                            .style('opacity', .9)
+                            .style('display', 'block');
                     tooltip.html(d.properties.name + '<br>' + getScore(d.properties.name))
                             .style("left", (d3.event.pageX) + "px")
                             .style("top", (d3.event.pageY - 28) + "px");
@@ -231,7 +232,8 @@ d3.json(topoJSON_url)
                 .on("mouseout", () => {
                     tooltip.transition()
                             .duration(1000)
-                            .style("opacity", 0);
+                            .style("opacity", 0)
+                            .on('end', () => {tooltip.style('display', 'none')});
                 })
                 .on("click", focus);
             // .append('title')
