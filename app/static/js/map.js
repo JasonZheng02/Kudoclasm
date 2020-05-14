@@ -31,166 +31,11 @@ const zoom = d3.zoom()
 
 svg.call(zoom);
 
-
-// // Create the outer border of the Earth.
-// g.append('path')
-//         .attr('id', 'sphere')
-//         .attr('d', pathGenerator({type: 'Sphere'}))
-//         .on('click', reset);
-
-
-// Handle happiness data from csv files
-// d3.csv('../static/data/2015.csv', d => {
-//     return {
-//         country: d.Country,
-//         rank: +d['Happiness Rank'],
-//         score: +d['Happiness Score'],
-//         factors: {
-//             economy: +d['Economy (GDP per Capita)'],
-//             family: +d.Family,
-//             health: +d['Health (Life Expectancy)'],
-//             freedom: +d.Freedom,
-//             trust: +d['Trust (Government Corruption)'],
-//             generosity: +d.Generosity,
-//             residual: +d['Dystopia Residual']
-//         }
-//     };
-// }).then(function(data) {
-//     // console.log(data);
-//     // console.log(data[0]);
-//     const data2015 = data;
-// });
-// d3.csv('../static/data/2016.csv', d => {
-//     return {
-//         country: d.Country,
-//         rank: +d['Happiness Rank'],
-//         score: +d['Happiness Score'],
-//         factors: {
-//             economy: +d['Economy (GDP per Capita)'],
-//             family: +d.Family,
-//             health: +d['Health (Life Expectancy)'],
-//             freedom: +d.Freedom,
-//             trust: +d['Trust (Government Corruption)'],
-//             generosity: +d.Generosity,
-//             residual: +d['Dystopia Residual']
-//         }
-//     };
-// }).then(function(data) {
-//     // console.log(data);
-//     // console.log(data[0]);
-//     const data2016 = data;
-// });
-// d3.csv('../static/data/2017.csv', d => {
-//     return {
-//         country: d.Country,
-//         rank: +d['Happiness.Rank'],
-//         score: +d['Happiness.Score'],
-//         factors: {
-//             economy: +d['Economy..GDP.per.Capita.'],
-//             family: +d.Family,
-//             health: +d['Health..Life.Expectancy.'],
-//             freedom: +d.Freedom,
-//             trust: +d['Trust..Government.Corruption.'],
-//             generosity: +d.Generosity,
-//             residual: +d['Dystopia.Residual']
-//         }
-//     };
-// }).then(function(data) {
-//     // console.log(data);
-//     // console.log(data[0]);
-//     const data2017 = data;
-// });
-// d3.csv('../static/data/2018.csv', d => {
-//     return {
-//         country: d['Country or region'],
-//         rank: +d['Overall rank'],
-//         score: +d.Score,
-//         factors: {
-//             economy: +d['GDP per capita'],
-//             // family: +d.Family,
-//             social: +d['Social support'],
-//             health: +d['Healthy life expectancy'],
-//             freedom: +d['Freedom to make life choices'],
-//             trust: +d['Perceptions of corruption'],
-//             generosity: +d.Generosity,
-//             // residual: +d['Dystopia.Residual']
-//         }
-//     };
-// }).then(function(data) {
-//     // console.log(data);
-//     // console.log(data[0]);
-//     const data2018 = data;
-// });
 var data2019;
-
-names = {
-    'United States': 'United States of America',
-    'Czech Republic': 'Czechia',
-    'Trinidad & Tobago': 'Trinidad and Tobago',
-    'Dominican Republic': 'Dominican Rep.',
-    'Bosnia and Herzegovina': 'Bosnia and Herz.',
-    'North Macedonia': 'Macedonia',
-    'Ivory Coast': "Côte d'Ivoire",
-    'Congo (Brazzaville)': 'Congo',
-    'Palestinian Territories': 'Palestine',
-    'Congo (Kinshasa)': 'Dem. Rep. Congo',
-    'Swaziland': 'eSwatini',
-    'Central African Republic': 'Central African Rep.',
-    'South Sudan': 'S. Sudan',
-};
-
-function rename(country) {
-    if (country in names) {
-        return names[country];
-    }
-    else {
-        return country;
-    };
-};
-
-d3.csv('../static/data/2019.csv', d => {
-    return {
-        country: rename(d['Country or region']),
-        rank: +d['Overall rank'],
-        score: +d.Score,
-        factors: {
-            economy: +d['GDP per capita'],
-            // family: +d.Family,
-            social: +d['Social support'],
-            health: +d['Healthy life expectancy'],
-            freedom: +d['Freedom to make life choices'],
-            trust: +d['Perceptions of corruption'],
-            generosity: +d.Generosity,
-            // residual: +d['Dystopia.Residual']
-        }
-    };
-}).then(function(data) {
-    console.log(data);
-    console.log(data[0]);
-    data2019 = data;
-});
-
-function find(country) {
-    for (var i=0; i<data2019.length; i++) {
-        if (data2019[i].country == country) {
-            return data2019[i];
-        };
-    };
-};
-
-function getScore(country) {
-    var countryObj = find(country);
-    if (countryObj != null) {
-        return countryObj.score;
-    }
-    else {
-        return 'N/A';
-    };
-};
-
+collectData('2019').then(data => data2019 = data);
 
 var colorScale = d3.scaleSequential()
-                .domain([2.853, 7.769])
+                .domain([2.853, 7.769])     //TODO: change magic numbers
                 .interpolator(d3.interpolateLab('purple', 'orange'))
                 .unknown('#ccc');
 
@@ -213,8 +58,8 @@ d3.json(topoJSON_url)
                 .attr('id', 'country')
                 .attr('d', pathGenerator)
                 .attr('fill', d => {
-                    if (getScore(d.properties.name) != 'N/A') {
-                        return colorScale(getScore(d.properties.name));
+                    if (getScore(data2019, d.properties.name) != 'N/A') {
+                        return colorScale(getScore(data2019, d.properties.name));
                     }
                     else {
                         return colorScale(NaN);
@@ -225,7 +70,7 @@ d3.json(topoJSON_url)
                             .duration(1000)
                             .style('opacity', .9)
                             .style('display', 'block');
-                    tooltip.html(d.properties.name + '<br>' + getScore(d.properties.name))
+                    tooltip.html(d.properties.name + '<br>' + getScore(data2019, d.properties.name))
                             .style("left", (d3.event.pageX) + "px")
                             .style("top", (d3.event.pageY - 28) + "px");
                 })
