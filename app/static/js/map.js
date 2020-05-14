@@ -42,49 +42,52 @@ var colorScale = d3.scaleSequential()
 
 var tooltip = d3.select('#tooltip').style('opacity', 0).style('display', 'none');
 
-d3.json(topoJSON_url)
-    .then(data => {
-        // console.log(data);
+d3.json(topoJSON_url).then(data => {
+    // console.log(data);
 
-        // Convert topoJSON to geoJSON.
-        const countries = topojson.feature(data, data.objects.countries);
-        // console.log(countries);
+    // Convert topoJSON to geoJSON.
+    const countries = topojson.feature(data, data.objects.countries);
+    // console.log(countries);
 
-        // Convert data paths into svg paths.
-        g.selectAll('path')
-            .data(countries.features)
-            .enter()
-            .append('path')
-                .attr('id', 'country')
-                .attr('d', pathGenerator)
-                .attr('fill', d => {
-                    if (getScore(data2019, d.properties.name) != 'N/A') {
-                        return colorScale(getScore(data2019, d.properties.name));
-                    }
-                    else {
-                        return colorScale(NaN);
-                    };
-                })
-                .on("mouseover", d => {
-                    tooltip.transition()
-                            .duration(1000)
-                            .style('opacity', .9)
-                            .style('display', 'block');
-                    tooltip.html(d.properties.name + '<br>' + getScore(data2019, d.properties.name))
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
-                })
-                .on("mouseout", () => {
-                    tooltip.transition()
-                            .duration(1000)
-                            .style("opacity", 0)
-                            .on('end', () => {tooltip.style('display', 'none')});
-                })
-                .on("click", focus);
+    // Convert data paths into svg paths.
+    g.selectAll('path')
+        .data(countries.features)
+        .enter()
+        .append('path')
+            .attr('id', 'country')
+            .attr('d', pathGenerator)
+            .attr('fill', d => {
+                if (getScore(data2019, d.properties.name) != 'N/A') {
+                    return colorScale(getScore(data2019, d.properties.name));
+                }
+                else {
+                    return colorScale(NaN);
+                };
+            })
+            .on("mouseover", tooltipShow)
+            .on("mouseout", tooltipHide)
+            .on("click", focus);
             // .append('title')
             //     .text(d => d.properties.name)
-        });
-        
+});
+
+
+function tooltipShow(d) {
+    tooltip.transition()
+            .duration(1000)
+            .style('opacity', .9)
+            .style('display', 'block');
+    tooltip.html(d.properties.name + '<br>' + getScore(data2019, d.properties.name) + '<br>' + getRank(data2019, d.properties.name))
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+};
+
+function tooltipHide(d) {
+    tooltip.transition()
+            .duration(1000)
+            .style("opacity", 0)
+            .on('end', () => {tooltip.style('display', 'none')});
+};
 
 function focus(d) {
     const [[x0, y0], [x1, y1]] = pathGenerator.bounds(d);
@@ -97,7 +100,7 @@ function focus(d) {
             .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
         d3.mouse(svg.node())
     );
-}
+};
 
 
 function reset() {
@@ -106,4 +109,4 @@ function reset() {
         d3.zoomIdentity,
         d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
     );
-}
+};
