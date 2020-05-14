@@ -22,3 +22,10 @@
     border-radius: 8px;
     pointer-events: fill;
 }
+
+#graph {
+    position: absolute;
+    background: white;
+    opacity: 0;
+    display: none;
+}

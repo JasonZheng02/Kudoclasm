@@ -35,9 +35,9 @@ var data2019;
 collectData('2019').then(data => data2019 = data);
 
 var colorScale = d3.scaleSequential()
-                .domain([2.853, 7.769])     //TODO: change magic numbers
-                .interpolator(d3.interpolateLab('purple', 'orange'))
-                .unknown('#ccc');
+                    .domain([2.853, 7.769])     //TODO: change magic numbers
+                    .interpolator(d3.interpolateLab('purple', 'orange'))
+                    .unknown('#ccc');
 
 
 var tooltip = d3.select('#tooltip').style('opacity', 0).style('display', 'none');
@@ -66,7 +66,11 @@ d3.json(topoJSON_url).then(data => {
             })
             .on("mouseover", tooltipShow)
             .on("mouseout", tooltipHide)
-            .on("click", focus);
+            .on("click", d => {
+                focus(d);
+                graph(data2019, d);
+                tooltipHide(d);
+            });
             // .append('title')
             //     .text(d => d.properties.name)
 });
@@ -89,6 +93,7 @@ function tooltipHide(d) {
             .on('end', () => {tooltip.style('display', 'none')});
 };
 
+
 function focus(d) {
     const [[x0, y0], [x1, y1]] = pathGenerator.bounds(d);
     d3.event.stopPropagation();
@@ -101,7 +106,6 @@ function focus(d) {
         d3.mouse(svg.node())
     );
 };
-
 
 function reset() {
     svg.transition().duration(750).call(
