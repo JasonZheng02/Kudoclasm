@@ -8,28 +8,60 @@ P04 -- Let the Data Speak
 {% extends 'template.html' %}
 
 {% block title %}
-    Title In Progress
+    Kairosclerosis
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="../static/css/map.css">
+    <link rel="stylesheet" href="../static/css/home.css">
 
     <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
     <script src="http://d3js.org/topojson.v3.min.js"></script>
 {% endblock %}
 
+{% block navitems %}
+    <li class="nav-item">
+        <a class="nav-link" href="#definition">Definition</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#about">About</a>
+    </li>
+{% endblock %}
+
 {% block body %}
-    Map
-    <br>
-    <div>
-        <svg id="map" width="1000" height="500"></svg>
-        <div id="tooltip"></div>
-        <div id="mask"></div>
+    <div id="definition">
+        <div id="filler-25"></div>
+        <div class="container text-center">
+            <h1>Kairosclerosis</h1>
+            <div id="filler-15"></div>
+            <div class="container">
+                <p>
+                    n. the moment you realize that you’re currently happy—consciously trying to savor the feeling—which prompts your intellect to identify it, pick it apart and put it in context, where it will slowly dissolve until it’s little more than an aftertaste
+                </p>
+            </div>
+            <div id="filler-15"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <p class="col-md-5">
+                        - The Dictionary of Obscure Sorrows
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     
-    <div id="graph"></div>
-
-    <script src="../static/js/data.js"></script>
-    <script src="../static/js/graph.js"></script>
-    <script src="../static/js/map.js"></script>
+    <div id="about">
+        <div id="filler-15"></div>
+        <div class="container text-center">
+            <h1>
+                About
+            </h1>
+            <div id="filler-15"></div>
+            <div class="container">
+                <p>
+                    This website aims to portray data about happiness across the globe in an interactive and unique way.  While data may be portrayed according to location by country, this is not indicative of a causation or correlation between geography and one's personal happiness.  Each country also shows the factors contributing to their Happiness Score and the amount of impact each has on their total score.
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

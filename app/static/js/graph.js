@@ -19,11 +19,11 @@ function graph(dataset, d) {
     var height = 250;
     
     graph.transition()
-            .duration(500)
+            .duration(1000)
             .style('opacity', 1)
             .style('display', 'block');
     mask.transition()
-        .duration(500)
+        .duration(1000)
         .style('opacity', 0.8)
         .style('display', 'block');
     graph.html('<h1>' + d.properties.name + '</h1><h4>' + 'Happiness Score: ' + getScore(dataset, d.properties.name) + '</h4><h4>' + 'Ranking: ' + getRank(dataset, d.properties.name) + '</h4><hr><br>')
@@ -106,11 +106,11 @@ function graphClose(d) {
     var mask = d3.select('#mask');
 
     graph.transition()
-            .duration(500)
+            .duration(1000)
             .style("opacity", 0)
             .on('end', () => {graph.style('display', 'none')});
     mask.transition()
-        .duration(500)
+        .duration(1000)
         .style("opacity", 0)
         .on('end', () => {mask.style('display', 'none')});
 };

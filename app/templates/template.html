@@ -12,6 +12,8 @@ P04 -- Let the Data Speak
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+        <link rel="stylesheet" href="../static/css/template.css">
+        
         <title>
             {% block title %}{% endblock %}
         </title>
@@ -19,6 +21,14 @@ P04 -- Let the Data Speak
         {% block head %}{% endblock %}
     </head>
     <body>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-left fixed-top" style="margin-bottom:50px;">
+            <a class="navbar-brand" href="/">Kairosclerosis</a>
+            <ul class="navbar-nav">
+				{% block navitems %}{% endblock %}
+            </ul>
+            <a href="/map"><button id="nav-button">See the Map</button></a>
+        </nav>
+        <div id="filler"></div>
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -1,0 +1,106 @@
+<!-- 
+Team Kudoclasm: Jason Zheng, Hong Wei Chen, Matthew Chan, Tyler Huang
+SoftDev pd2
+P04 -- Let the Data Speak
+2020-05-11
+-->
+
+{% extends 'template.html' %}
+
+{% block title %}
+    Kairosclerosis || Map
+{% endblock %}
+
+{% block navitems %}
+    <li class="nav-item">
+        <a class="nav-link" href="#map">Map</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#key">Key</a>
+    </li>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/map.css">
+
+    <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v3.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="map">
+        <svg width="1000" height="500"></svg>
+        <div id="tooltip"></div>
+        <div id="mask"></div>
+    </div>
+    
+    <div id="graph"></div>
+
+    <script src="../static/js/data.js"></script>
+    <script src="../static/js/graph.js"></script>
+    <script src="../static/js/map.js"></script>
+
+    <div id="key">
+        <div id="filler-10"></div>
+        <div class="container text-center">
+            <h1>
+                Key
+            </h1>
+            <div class="container text-left">
+                <h3>
+                    Data
+                </h3>
+                <li>
+                    data collected from the World Happiness Report of 2019 from: <a href="https://www.kaggle.com/unsdsn/world-happiness/">https://www.kaggle.com/unsdsn/world-happiness/</a>
+                </li>
+                <li>
+                    <b>Happiness Score</b>: a metric measured in 2019 by asking the sampled people the question, "How would you rate your happiness on a scale of 0 to 10 where 10 is the happiest"
+                </li>
+
+                <h3>
+                    Map
+                </h3>
+                <li>
+                    coloring of countries correlate with their Happiness Score
+                </li>
+                <li>
+                    <b>orange</b> means a higher score and happier country
+                </li>
+                <li>
+                    <b>purple</b> means a lower score and a less happy country
+                </li>
+                <li>
+                    <b>grey</b> means data on that country was not collected/found
+                </li>
+                <li>
+                    to see the factor graph of a country, click on it
+                </li>
+
+                <h3>
+                    Graphs
+                </h3>
+                <li>
+                    factors are shown as a percentage of the total happiness score
+                </li>
+                <li>
+                    <b>economy</b>: the extent to which GDP contributes to the calculation of the Happiness Score
+                </li>
+                <li>
+                    <b>social</b>: the extent to which Social Support contributes to the calculation of the Happiness Score
+                </li>
+                <li>
+                    <b>health</b>: the extent to which Life expectancy contributed to the calculation of the Happiness Score
+                </li>
+                <li>
+                    <b>freedom</b>: the extent to which Freedom contributed to the calculation of the Happiness Score
+                </li>
+                <li>
+                    <b>trust</b>: the extent to which Perception of Corruption contributes to Happiness Score
+                </li>
+                <li>
+                    <b>generosity</b>: the extent to which Generosity contributes to Happiness Score
+                </li>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+#definition {
+    background-image: url(/static/img/puddle.jpg);
+    background-repeat: no-repeat;
+    background-position: center 95%;
+    background-size: 100%;
+    height: 95.3vh;
+}
+
+#filler-25 {
+    height: 25vh;
+}
+
+#filler-15 {
+    height: 15vh;
+}
+
+#definition {
+    color: white;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+p {
+    font-size: 25px;
+    font-weight: 450;
+}
+
+#definition p {
+    font-style: italic;
+}
+
+#about {
+    background-color: rgb(255, 215, 142);
+    height: 95.3vh;
+    color: rgb(190, 124, 0);
+}

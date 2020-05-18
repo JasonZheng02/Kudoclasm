@@ -1,9 +1,4 @@
-#map #sphere {
-    fill: #4242e4;
-}
-
 #map #country {
-    /* fill: lightgreen; */
     stroke: white;
     stroke-width: 0.05px;
 }
@@ -14,10 +9,9 @@
 
 #tooltip {
     position: absolute;
-    text-align: center;
+    text-align: left;
     padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
+    background: darkgrey;
     border: 0px;
     border-radius: 8px;
     pointer-events: fill;
@@ -43,4 +37,28 @@
     height: 100%;
     opacity: 0;
     display: none;
+}
+
+#key {
+    background-color: rgb(255, 215, 142);
+    height: 95.3vh;
+    color: rgb(190, 124, 0);
+}
+
+#filler-10 {
+    height: 10vh;
+}
+
+#key h1 {
+    font-size: 100px;
+}
+
+#key h3 {
+    font-size: 50px;
+    font-style: italic;
+}
+
+#key li {
+    font-size: 15px;
+    font-weight: 450;
 }

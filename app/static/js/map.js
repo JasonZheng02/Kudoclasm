@@ -6,8 +6,8 @@
 var svg = d3.select('svg');
 svg.on('click', reset);
 
-var width = window.screen.width;
-var height = window.screen.height*(3/4);
+var width = window.screen.width*(0.9871);
+var height = window.screen.height*(0.829);
 svg.attr('width', width);
 svg.attr('height', height);
 
@@ -83,12 +83,12 @@ function tooltipShow(d) {
             .style('display', 'block');
     tooltip.html(d.properties.name + '<br>' + 'Score: ' + getScore(data2019, d.properties.name) + '<br>' + 'Rank: ' + getRank(data2019, d.properties.name))
             .style("left", (d3.event.pageX + 10) + "px")
-            .style("top", (d3.event.pageY - 50) + "px");
+            .style("top", (d3.event.pageY - 60) + "px");
 };
 
 function tooltipHide(d) {
     tooltip.transition()
-            .duration(250)
+            .duration(200)
             .style("opacity", 0)
             .on('end', () => {tooltip.style('display', 'none')});
 };
@@ -97,7 +97,7 @@ function tooltipHide(d) {
 function focus(d) {
     const [[x0, y0], [x1, y1]] = pathGenerator.bounds(d);
     d3.event.stopPropagation();
-    svg.transition().duration(750).call(
+    svg.transition().duration(1000).call(
         zoom.transform,
         d3.zoomIdentity
             .translate(width / 2, height / 2)
@@ -108,7 +108,7 @@ function focus(d) {
 };
 
 function reset() {
-    svg.transition().duration(750).call(
+    svg.transition().duration(1000).call(
         zoom.transform,
         d3.zoomIdentity,
         d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
