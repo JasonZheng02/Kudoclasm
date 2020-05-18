@@ -28,6 +28,7 @@ pip install -r ./requirements.txt
 ```
 python3 app/__init__.py
 ```
+Head to <http://127.0.0.1:5000/> in a web browser and enjoy!
 
 <br><br><br>
 © 2020 Kudoclasm -- Matthew Chan
